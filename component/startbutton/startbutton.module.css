@@ -1,0 +1,30 @@
+.startButtonContainer {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.startButton {
+  background-color: #4caf89;
+}
+
+.resetButton {
+  background-color: #c1da03;
+}
+
+.startButton:hover {
+  background-color: #3e8e7e;
+  cursor: pointer;
+}
+
+.Button {
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  font-size: 2rem;
+
+  border: none;
+  border-radius: 5px;
+
+  transition: 0.3s ease;
+}

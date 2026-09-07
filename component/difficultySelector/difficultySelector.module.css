@@ -1,0 +1,23 @@
+.difficultySelectorContainer {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.difficultySelector {
+  flex: 1;
+  height: 50px;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.difficultySelector:hover {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #0ca2b5;
+}
