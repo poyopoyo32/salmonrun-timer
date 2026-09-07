@@ -40,6 +40,8 @@ export default function page() {
     setTime(INITIAL_TIME);
     setWave(INITIAL_WAVE);
     setRunning(false);
+    setIsExtraWave(false);
+    setBossAlliance(false);
   }
 
   async function unlockSounds() {
@@ -94,7 +96,14 @@ export default function page() {
       setTime(WAVE_START_TIME);
       return;
     }
-    if (wave === LAST_WAVE && !isExtraWave) {
+    if (isExtraWave) { // EXTRA wave 종료 처리 추가
+    setRunning(false);
+    setTimeout(() => {
+      resetGame();
+    }, 1000);
+    return;
+  }
+    if (wave === LAST_WAVE) {
       if (bossAlliance) {
         startExtraWave();
       } else {

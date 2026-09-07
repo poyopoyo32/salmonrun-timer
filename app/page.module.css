@@ -31,6 +31,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 250px;
 }
 
 .header {
@@ -98,4 +100,5 @@
   display: flex;
   font-size: 1.5rem;
   justify-content: center;
+  white-space: nowrap;
 }
