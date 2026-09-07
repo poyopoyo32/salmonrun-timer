@@ -207,7 +207,7 @@ export default function page() {
     }
   }, [time, wave, stack, isExtraWave]);
 
-  return {
+  return (
     <>
       <main className={Classes.centerfull}>
         <div className={Classes.container}>
@@ -270,7 +270,6 @@ export default function page() {
           </div>
         </div>
       </main>
-    </>     
-  }
+    </>
+  );
 }
-
