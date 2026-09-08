@@ -86,6 +86,14 @@ export default function page() {
   function nextWave() {
     played.current = [];
 
+    if (isExtraWave) { // EXTRA wave 종료 처리 추가
+    setRunning(false);
+    setTimeout(() => {
+      resetGame();
+    }, 1000);
+    return;
+  }
+
     if (wave === 1) {
       setWave(2);
       setTime(WAVE_START_TIME);
@@ -96,13 +104,7 @@ export default function page() {
       setTime(WAVE_START_TIME);
       return;
     }
-    if (isExtraWave) { // EXTRA wave 종료 처리 추가
-    setRunning(false);
-    setTimeout(() => {
-      resetGame();
-    }, 1000);
-    return;
-  }
+    
     if (wave === LAST_WAVE) {
       if (bossAlliance) {
         startExtraWave();
@@ -111,15 +113,6 @@ export default function page() {
         setTimeout(() => {
           resetGame();
         }, 1000);
-
-        return;
-      }
-      if (isExtraWave) {
-        setRunning(false);
-        setTimeout(() => {
-          resetGame();
-        }, 1000);
-        return;
       }
     }
   }
@@ -186,7 +179,9 @@ export default function page() {
   useEffect(() => {
     if (typeof time !== "number") return;
 
-    const targets = spawntimes[stack];
+    const targets = isExtraWave
+    ? spawntimes.extra
+    : spawntimes[stack];
 
     targets.forEach((target) => {
       if (
