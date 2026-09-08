@@ -13,7 +13,7 @@ export default function page() {
   const GAME_START_TIME = 117;
   const WAVE_START_TIME = 112;
   const PRE_START_TIME = 107;
-  const EXTRA_START_TIME = 106;
+  const EXTRA_START_TIME = 105;
   const LAST_WAVE = 3;
 
   const WAVE_END_TIME = -8;
