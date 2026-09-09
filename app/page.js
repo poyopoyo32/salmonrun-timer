@@ -13,12 +13,12 @@ export default function page() {
   const GAME_START_TIME = 117;
   const WAVE_START_TIME = 112;
   const PRE_START_TIME = 107;
-  const EXTRA_START_TIME = 105;
+  const EXTRA_START_TIME = 104;
   const LAST_WAVE = 3;
 
   const WAVE_END_TIME = -8;
 
-  const FINAL_WAVE_END_TIME = -16;
+  const FINAL_WAVE_END_TIME = -17;
 
   const EXTRA_WAVE_END_TIME = -8;
 
@@ -81,6 +81,17 @@ export default function page() {
     setWave("EXTRA");
     setTime(EXTRA_START_TIME);
     setIsExtraWave(true);
+    setRunning(true);
+  }
+
+  async function startExtraWaveDirect() {
+    await unlockSounds();
+    played.current = [];
+    setWave("EXTRA");
+    setTime(EXTRA_START_TIME);
+    setIsExtraWave(true);
+    setBossAlliance(true);
+    setRunning(true);
   }
 
   function nextWave() {
@@ -133,6 +144,9 @@ export default function page() {
       (stack === "28-29" && target === 37) ||
       (stack === "30" && target === 36)
     ) {
+      return sounds.current.prepare;
+    }
+    if (isExtraWave && target === 42) {
       return sounds.current.prepare;
     }
     return sounds.current.spawn;
@@ -270,6 +284,15 @@ export default function page() {
               onClick={() => startWave(3)}
             >
               W3 7초
+            </button>
+          </div>
+          <div className={Classes.stackButtonContainer}>
+            <button
+              className={Classes.stackButtonWide}
+              style={{ backgroundColor: "#d9534f", color: "#fff" }}
+              onClick={startExtraWaveDirect}
+            >
+              두목연합 바로 시작 <br /> (104초부터)
             </button>
           </div>
         </div>
