@@ -29,7 +29,14 @@ export default function page() {
   const [wave, setWave] = useState(INITIAL_WAVE);
   const [running, setRunning] = useState(false);
 
-  const [stack, setDifficulty] = useState("26-27");
+ const ROOM_TO_STACK = {
+  26: "26-27", 27: "26-27",
+  28: "28-29", 29: "28-29",
+  30: "30",
+};
+
+const [room, setRoom] = useState(26);
+const stack = ROOM_TO_STACK[room]; 
 
   const [bossAlliance, setBossAlliance] = useState(false);
 
@@ -231,7 +238,7 @@ export default function page() {
         <div className={Classes.container}>
           <div className={Classes.header}>거물연어 타이머</div>
           <h2>1웨이브 시작</h2>
-          <DifficultySelector stack={stack} setDifficulty={setDifficulty} />
+          <DifficultySelector room={room} setRoom={setRoom} />
 
           <StartButton
             running={running}
