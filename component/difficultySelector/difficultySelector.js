@@ -1,37 +1,61 @@
 import Classes from "@/component/difficultySelector/difficultySelector.module.css";
 
-export default function DifficultySelector({ stack, setDifficulty }) {
+const ROOMS = [26, 27, 28, 29, 30];
+
+export default function DifficultySelector({ room, setRoom }) {
   return (
     <div className={Classes.difficultySelectorContainer}>
       <button
         className={
-          stack === "26-27"
+          room === 26
             ? `${Classes.selected} ${Classes.difficultySelector}`
             : Classes.difficultySelector
         }
-        onClick={() => setDifficulty("26-27")}
+        onClick={() => setRoom(26)}
       >
-        26~27
+        26
       </button>
 
       <button
         className={
-          stack === "28-29"
+          room === 27
             ? `${Classes.selected} ${Classes.difficultySelector}`
             : Classes.difficultySelector
         }
-        onClick={() => setDifficulty("28-29")}
+        onClick={() => setRoom(27)}
       >
-        28~29
+        27
       </button>
 
       <button
         className={
-          stack === "30"
+          room === 28
             ? `${Classes.selected} ${Classes.difficultySelector}`
             : Classes.difficultySelector
         }
-        onClick={() => setDifficulty("30")}
+        onClick={() => setRoom(28)}
+      >
+        28
+      </button>
+
+      <button
+        className={
+          room === 29
+            ? `${Classes.selected} ${Classes.difficultySelector}`
+            : Classes.difficultySelector
+        }
+        onClick={() => setRoom(29)}
+      >
+        29
+      </button>
+
+      <button
+        className={
+          room === 30
+            ? `${Classes.selected} ${Classes.difficultySelector}`
+            : Classes.difficultySelector
+        }
+        onClick={() => setRoom(30)}
       >
         30
       </button>
