@@ -1,23 +1,37 @@
 .difficultySelectorContainer {
-  width: 100%;
-  max-width: 600px;
   display: flex;
-  gap: 10px;
-  margin-top: 5px;
+  gap: 6px;
+  width: 100%;
 }
 
-.difficultySelector {
+.roomBtn {
+  composes: stackButton from "../../app/page.module.css";
+  position: relative;
   flex: 1;
-  height: 50px;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  border: none;
+  min-width: 0;
+  width: auto;
 }
 
-.difficultySelector:hover {
-  cursor: pointer;
+.roomGreen { background: #639922; color: #fff; border: none; }
+.roomYellow { background: #ef9f27; color: #412402; border: none; }
+.roomRed { background: #e24b4a; color: #fff; border: none; }
+
+.cornerBR {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 15px;
+  height: 15px;
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  border-radius: 0 0 8px 0;
 }
 
-.selected {
-  background-color: #0ca2b5;
+.cornerTL {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  border-radius: 8px 0 0 0;
 }
