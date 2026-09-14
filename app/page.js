@@ -10,7 +10,7 @@ export default function page() {
   const INITIAL_TIME = "-";
   const INITIAL_WAVE = "-";
 
-  const GAME_START_TIME = 117;
+  const GAME_START_TIME = 113;
   const WAVE_START_TIME = 112;
   const PRE_START_TIME = 107;
   const EXTRA_START_TIME = 104;
@@ -52,9 +52,11 @@ const stack = ROOM_TO_STACK[room];
   }
 
   async function unlockSounds() {
-    for (const audio of Object.values(sounds.current)) {
+      const flatList = Object.values(sounds.current).flatMap((v) =>
+      Array.isArray(v) ? v : [v]
+    );
+    for (const audio of flatList) {
       audio.volume = 0;
-
       try {
         await audio.play();
         audio.pause();
@@ -62,10 +64,16 @@ const stack = ROOM_TO_STACK[room];
       } catch (e) {
         console.error(e);
       }
-
       audio.volume = 0.7;
     }
   }
+
+  function playRandomCountdown() {
+  const pool = sounds.current.countdown;
+  const idx = Math.floor(Math.random() * pool.length);
+  playSound(pool[idx]);
+  }
+    
 
   async function startGame() {
     await unlockSounds();
@@ -176,8 +184,15 @@ const stack = ROOM_TO_STACK[room];
       last: new Audio("/sound/last.wav"),
       warning: new Audio("/sound/warning.wav"),
       end: new Audio("/sound/end.wav"),
+      countdown: Array.from({ length: 10 }, (_, i) => new Audio(`/sound/countdown/${i}.wav`)),
     };
-
+    const flatList = Object.values(sounds.current).flatMap((v) =>
+    Array.isArray(v) ? v : [v]
+  );
+  flatList.forEach((audio) => {
+    audio.preload = "auto";
+    audio.volume = 1;
+  });
     Object.values(sounds.current).forEach((audio) => {
       audio.preload = "auto";
       audio.volume = 1;
@@ -205,6 +220,8 @@ const stack = ROOM_TO_STACK[room];
     : spawntimes[stack];
 
     targets.forEach((target) => {
+      
+
       if (
         target !== 100 &&
         (time === target + 3 || time === target + 2 || time === target + 1)
@@ -212,12 +229,21 @@ const stack = ROOM_TO_STACK[room];
         playSound(sounds.current.warning);
       }
 
+      
+
       if (time === target && !played.current.includes(target)) {
         playSound(getSound(target));
         played.current.push(target);
       }
     });
+    if (time >= 101 && time <= 110) {
+      playRandomCountdown();
+    }
 
+    if (time <= 10 && time >= 1) {
+      playRandomCountdown();
+    }
+    
     // if (time === 64) {
     //   playSound(sounds.current.mid);
     // }
