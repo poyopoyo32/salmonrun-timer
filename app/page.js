@@ -3,40 +3,22 @@
 import { useState, useEffect, useRef } from "react";
 import Classes from "./page.module.css";
 import spawntimes from "@/data/spawntimes.js";
+import {TIME_CONFIG, LAST_WAVE, ROOM_TO_STACK } from "@/data/timerConfig.js";
 import DifficultySelector from "@/component/difficultySelector/difficultySelector.js";
 import StartButton from "@/component/startbutton/startbutton.js";
 
 export default function page() {
-  const INITIAL_TIME = "-";
-  const INITIAL_WAVE = "-";
-
-  const GAME_START_TIME = 113;
-  const WAVE_START_TIME = 112;
-  const PRE_START_TIME = 107;
-  const EXTRA_START_TIME = 104;
-  const LAST_WAVE = 3;
-
-  const WAVE_END_TIME = -8;
-
-  const FINAL_WAVE_END_TIME = -17;
-
-  const EXTRA_WAVE_END_TIME = -8;
+  
 
   const sounds = useRef({});
   const played = useRef([]);
 
-  const [time, setTime] = useState(INITIAL_TIME);
-  const [wave, setWave] = useState(INITIAL_WAVE);
+  const [time, setTime] = useState(TIME_CONFIG.INITIAL_TIME);
+  const [wave, setWave] = useState(TIME_CONFIG.INITIAL_WAVE);
   const [running, setRunning] = useState(false);
 
- const ROOM_TO_STACK = {
-  26: "26-27", 27: "26-27",
-  28: "28-29", 29: "28-29",
-  30: "30",
-};
-
-const [room, setRoom] = useState(26);
-const stack = ROOM_TO_STACK[room]; 
+  const [room, setRoom] = useState(26);
+  const stack = ROOM_TO_STACK[room]; 
 
   const [bossAlliance, setBossAlliance] = useState(false);
 
@@ -44,8 +26,8 @@ const stack = ROOM_TO_STACK[room];
 
   function resetGame() {
     played.current = [];
-    setTime(INITIAL_TIME);
-    setWave(INITIAL_WAVE);
+    setTime(TIME_CONFIG.INITIAL_TIME);
+    setWave(TIME_CONFIG.INITIAL_WAVE);
     setRunning(false);
     setIsExtraWave(false);
     setBossAlliance(false);
@@ -79,7 +61,7 @@ const stack = ROOM_TO_STACK[room];
     await unlockSounds();
 
     played.current = [];
-    setTime(GAME_START_TIME);
+    setTime(TIME_CONFIG.GAME_START);
     setWave(1);
     setRunning(true);
   }
@@ -87,14 +69,14 @@ const stack = ROOM_TO_STACK[room];
   function startWave(waveNumber) {
     played.current = [];
     setWave(waveNumber);
-    setTime(PRE_START_TIME); // 107초
+    setTime(TIME_CONFIG.PRE_START); // 107초
     setRunning(true);
   }
 
   function startExtraWave() {
     played.current = [];
     setWave("EXTRA");
-    setTime(EXTRA_START_TIME);
+    setTime(TIME_CONFIG.EXTRA_START);
     setIsExtraWave(true);
     setRunning(true);
   }
@@ -103,7 +85,7 @@ const stack = ROOM_TO_STACK[room];
     await unlockSounds();
     played.current = [];
     setWave("EXTRA");
-    setTime(EXTRA_START_TIME);
+    setTime(TIME_CONFIG.EXTRA_START);
     setIsExtraWave(true);
     setBossAlliance(true);
     setRunning(true);
@@ -122,12 +104,12 @@ const stack = ROOM_TO_STACK[room];
 
     if (wave === 1) {
       setWave(2);
-      setTime(WAVE_START_TIME);
+      setTime(TIME_CONFIG.WAVE_START);
       return;
     }
     if (wave === 2) {
       setWave(LAST_WAVE);
-      setTime(WAVE_START_TIME);
+      setTime(TIME_CONFIG.WAVE_START);
       return;
     }
     
@@ -249,10 +231,10 @@ const stack = ROOM_TO_STACK[room];
     // }
     const endTime =
       wave === LAST_WAVE && !isExtraWave
-        ? FINAL_WAVE_END_TIME
+        ? TIME_CONFIG.FINAL_WAVE_END
         : isExtraWave
-          ? EXTRA_WAVE_END_TIME
-          : WAVE_END_TIME;
+          ? TIME_CONFIG.EXTRA_WAVE_END
+          : TIME_CONFIG.WAVE_END;
     if (time === endTime) {
       nextWave();
     }
