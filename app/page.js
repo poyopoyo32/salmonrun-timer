@@ -33,30 +33,6 @@ export default function page() {
     setBossAlliance(false);
   }
 
-  async function unlockSounds() {
-      const flatList = Object.values(sounds.current).flatMap((v) =>
-      Array.isArray(v) ? v : [v]
-    );
-    for (const audio of flatList) {
-      audio.volume = 0;
-      try {
-        await audio.play();
-        audio.pause();
-        audio.currentTime = 0;
-      } catch (e) {
-        console.error(e);
-      }
-      audio.volume = 0.7;
-    }
-  }
-
-  function playRandomCountdown() {
-  const pool = sounds.current.countdown;
-  const idx = Math.floor(Math.random() * pool.length);
-  playSound(pool[idx]);
-  }
-    
-
   async function startGame() {
     await unlockSounds();
 
@@ -124,9 +100,13 @@ export default function page() {
       }
     }
   }
-  function playSound(audio) {
-    audio.currentTime = 0; // 처음부터 재생
-    audio.play();
+  
+  function adjustTime(value) {
+    if (!running) return;
+    setTime((prev) => {
+      if (typeof prev !== "number") return prev;
+      return prev + value;
+    });
   }
 
   function getSound(target) {
@@ -148,38 +128,6 @@ export default function page() {
     }
     return sounds.current.spawn;
   }
-
-  function adjustTime(value) {
-    if (!running) return;
-    setTime((prev) => {
-      if (typeof prev !== "number") return prev;
-      return prev + value;
-    });
-  }
-
-  useEffect(() => {
-    sounds.current = {
-      start: new Audio("/sound/start.wav"),
-      spawn: new Audio("/sound/spawn.wav"),
-      prepare: new Audio("/sound/prepare.wav"),
-      mid: new Audio("/sound/mid.wav"),
-      last: new Audio("/sound/last.wav"),
-      warning: new Audio("/sound/warning.wav"),
-      end: new Audio("/sound/end.wav"),
-      countdown: Array.from({ length: 10 }, (_, i) => new Audio(`/sound/countdown/${i}.wav`)),
-    };
-    const flatList = Object.values(sounds.current).flatMap((v) =>
-    Array.isArray(v) ? v : [v]
-  );
-  flatList.forEach((audio) => {
-    audio.preload = "auto";
-    audio.volume = 1;
-  });
-    Object.values(sounds.current).forEach((audio) => {
-      audio.preload = "auto";
-      audio.volume = 1;
-    });
-  }, []);
 
   useEffect(() => {
     if (!running) return;
@@ -203,7 +151,7 @@ export default function page() {
 
     targets.forEach((target) => {
       
-
+      
       if (
         target !== 100 &&
         (time === target + 3 || time === target + 2 || time === target + 1)
