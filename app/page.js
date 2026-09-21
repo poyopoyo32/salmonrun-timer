@@ -5,18 +5,19 @@ import Classes from "./page.module.css";
 import spawntimes from "@/data/spawntimes.js";
 import {TIME_CONFIG, LAST_WAVE, ROOM_TO_STACK } from "@/data/timerConfig.js";
 import { useSounds } from "@/hooks/useSounds.js";
+import { useCountdown } from "@/hooks/useCountdown.js";
 import DifficultySelector from "@/component/difficultySelector/difficultySelector.js";
 import StartButton from "@/component/startbutton/startbutton.js";
 
 export default function page() {
   
-
+  const { time, setTime, running, setRunning, adjustTime } = useCountdown();
   const { sounds, unlockSounds, playSound, playRandomCountdown } = useSounds();
+  
   const played = useRef([]);
 
-  const [time, setTime] = useState(TIME_CONFIG.INITIAL_TIME);
   const [wave, setWave] = useState(TIME_CONFIG.INITIAL_WAVE);
-  const [running, setRunning] = useState(false);
+ 
 
   const [room, setRoom] = useState(26);
   const stack = ROOM_TO_STACK[room]; 
@@ -100,14 +101,6 @@ export default function page() {
       }
     }
   }
-  
-  function adjustTime(value) {
-    if (!running) return;
-    setTime((prev) => {
-      if (typeof prev !== "number") return prev;
-      return prev + value;
-    });
-  }
 
   function getSound(target) {
     if (target === 100) {
@@ -128,19 +121,6 @@ export default function page() {
     }
     return sounds.current.spawn;
   }
-
-  useEffect(() => {
-    if (!running) return;
-
-    const timer = setInterval(() => {
-      setTime((prev) => {
-        if (typeof prev !== "number") return prev;
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [running]);
 
   useEffect(() => {
     if (typeof time !== "number") return;
