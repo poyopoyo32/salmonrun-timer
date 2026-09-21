@@ -4,13 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import Classes from "./page.module.css";
 import spawntimes from "@/data/spawntimes.js";
 import {TIME_CONFIG, LAST_WAVE, ROOM_TO_STACK } from "@/data/timerConfig.js";
+import { useSounds } from "@/hooks/useSounds.js";
 import DifficultySelector from "@/component/difficultySelector/difficultySelector.js";
 import StartButton from "@/component/startbutton/startbutton.js";
 
 export default function page() {
   
 
-  const sounds = useRef({});
+  const { sounds, unlockSounds, playSound, playRandomCountdown } = useSounds();
   const played = useRef([]);
 
   const [time, setTime] = useState(TIME_CONFIG.INITIAL_TIME);
@@ -35,7 +36,6 @@ export default function page() {
 
   async function startGame() {
     await unlockSounds();
-
     played.current = [];
     setTime(TIME_CONFIG.GAME_START);
     setWave(1);
