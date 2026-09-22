@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Classes from "./page.module.css";
 import spawntimes from "@/data/spawntimes.js";
+import SpawnTable from "@/component/spawnTable/spawnTable.js";
 import {TIME_CONFIG, LAST_WAVE, ROOM_TO_STACK } from "@/data/timerConfig.js";
 import { useSounds } from "@/hooks/useSounds.js";
 import { useCountdown } from "@/hooks/useCountdown.js";
@@ -175,6 +176,7 @@ export default function page() {
           <div className={Classes.header}>거물연어 타이머</div>
           <h2>1웨이브 시작</h2>
           <DifficultySelector room={room} setRoom={setRoom} />
+          <SpawnTable room={room} />
 
           <StartButton
             running={running}
