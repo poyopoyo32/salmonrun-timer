@@ -176,7 +176,7 @@ export default function page() {
           <div className={Classes.header}>거물연어 타이머</div>
           <h2>1웨이브 시작</h2>
           <DifficultySelector room={room} setRoom={setRoom} />
-          <SpawnTable room={room} />
+          {typeof wave === "number" && <SpawnTable room={room} wave={wave} />}
 
           <StartButton
             running={running}
