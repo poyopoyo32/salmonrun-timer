@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Classes from "./page.module.css";
 import spawntimes from "@/data/spawntimes.js";
 import SpawnTable from "@/component/spawnTable/spawnTable.js";
+import RoomSummary from "@/component/roomSummary/roomSummary.js";
 import {TIME_CONFIG, LAST_WAVE, ROOM_TO_STACK } from "@/data/timerConfig.js";
 import { useSounds } from "@/hooks/useSounds.js";
 import { useCountdown } from "@/hooks/useCountdown.js";
@@ -175,6 +176,9 @@ export default function page() {
         <div className={Classes.layout}>
           <aside className={Classes.sidePanel}>
             {typeof wave === "number" && <SpawnTable room={room} wave={wave} />}
+          </aside>
+          <aside className={Classes.sidePanelRight}>
+            <RoomSummary room={room} />
           </aside>
           <div className={Classes.container}>
             <div className={Classes.header}>거물연어 타이머</div>

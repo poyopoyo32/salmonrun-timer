@@ -41,6 +41,13 @@
   width: 240px;
 }
 
+.sidePanelRight {
+  position: absolute;
+  right: calc(50% - 400px);
+  top: 0;
+  width: 240px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
