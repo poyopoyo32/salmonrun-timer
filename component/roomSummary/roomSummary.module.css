@@ -1,0 +1,25 @@
+.container {
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table td {
+  padding: 4px 8px;
+}
+
+.waveCell {
+  font-weight: bold;
+}
+
+.totalCell {
+  text-align: center;
+}
