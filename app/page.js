@@ -172,73 +172,76 @@ export default function page() {
   return (
     <>
       <main className={Classes.centerfull}>
-        <div className={Classes.container}>
-          <div className={Classes.header}>거물연어 타이머</div>
-          <h2>1웨이브 시작</h2>
-          <DifficultySelector room={room} setRoom={setRoom} />
-          {typeof wave === "number" && <SpawnTable room={room} wave={wave} />}
+        <div className={Classes.layout}>
+          <aside className={Classes.sidePanel}>
+            {typeof wave === "number" && <SpawnTable room={room} wave={wave} />}
+          </aside>
+          <div className={Classes.container}>
+            <div className={Classes.header}>거물연어 타이머</div>
+            <h2>1웨이브 시작</h2>
+            <DifficultySelector room={room} setRoom={setRoom} />
+            <StartButton
+              running={running}
+              resetGame={resetGame}
+              startGame={startGame}
+            />
 
-          <StartButton
-            running={running}
-            resetGame={resetGame}
-            startGame={startGame}
-          />
-
-          <p className={Classes.setTimer}>
-            WAVE : {wave} | 시간 : {time}
-          </p>
-          <button
-            className={Classes.stackButton}
-            style={{
-              backgroundColor: bossAlliance ? "#d9534f" : undefined,
-              color: bossAlliance ? "#fff" : undefined,
-            }}
-            onClick={() => setBossAlliance((prev) => !prev)}
-          >
-            두목연합 출현! {bossAlliance ? "ON" : "OFF"}
-          </button>
-          <div className={Classes.stackButtonContainer}>
+            <p className={Classes.setTimer}>
+              WAVE : {wave} | 시간 : {time}
+            </p>
             <button
               className={Classes.stackButton}
-              onClick={() => adjustTime(1)}
+              style={{
+                backgroundColor: bossAlliance ? "#d9534f" : undefined,
+                color: bossAlliance ? "#fff" : undefined,
+              }}
+              onClick={() => setBossAlliance((prev) => !prev)}
             >
-              +1
+              두목연합 출현! {bossAlliance ? "ON" : "OFF"}
             </button>
-            <button
-              className={Classes.stackButton}
-              onClick={() => adjustTime(-1)}
-            >
-              -1
-            </button>
-          </div>
-          <div className={Classes.stackButtonContainer}>
-            <button
-              className={Classes.stackButton}
-              onClick={() => startWave(1)}
-            >
-              W1 7초
-            </button>
-            <button
-              className={Classes.stackButton}
-              onClick={() => startWave(2)}
-            >
-              W2 7초
-            </button>
-            <button
-              className={Classes.stackButton}
-              onClick={() => startWave(3)}
-            >
-              W3 7초
-            </button>
-          </div>
-          <div className={Classes.stackButtonContainer}>
-            <button
-              className={Classes.stackButtonWide}
-              style={{ backgroundColor: "#d9534f", color: "#fff" }}
-              onClick={startExtraWaveDirect}
-            >
-              두목연합 바로 시작 <br /> (104초부터)
-            </button>
+            <div className={Classes.stackButtonContainer}>
+              <button
+                className={Classes.stackButton}
+                onClick={() => adjustTime(1)}
+              >
+                +1
+              </button>
+              <button
+                className={Classes.stackButton}
+                onClick={() => adjustTime(-1)}
+              >
+                -1
+              </button>
+            </div>
+            <div className={Classes.stackButtonContainer}>
+              <button
+                className={Classes.stackButton}
+                onClick={() => startWave(1)}
+              >
+                W1 7초
+              </button>
+              <button
+                className={Classes.stackButton}
+                onClick={() => startWave(2)}
+              >
+                W2 7초
+              </button>
+              <button
+                className={Classes.stackButton}
+                onClick={() => startWave(3)}
+              >
+                W3 7초
+              </button>
+            </div>
+            <div className={Classes.stackButtonContainer}>
+              <button
+                className={Classes.stackButtonWide}
+                style={{ backgroundColor: "#d9534f", color: "#fff" }}
+                onClick={startExtraWaveDirect}
+              >
+                두목연합 바로 시작 <br /> (104초부터)
+              </button>
+            </div>
           </div>
         </div>
       </main>
